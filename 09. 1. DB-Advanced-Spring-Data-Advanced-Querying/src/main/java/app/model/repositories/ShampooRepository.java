@@ -14,13 +14,14 @@ import java.util.List;
 
 @Repository
 public interface ShampooRepository extends JpaRepository<BasicShampoo, Long> {
+
     List<BasicShampoo> findBySizeOrderByBrand(Size size);
 
     Long countByPriceLessThan(BigDecimal price);
 
     //Find by List from Objects(Ingredients)
     @Query("SELECT i.shampoos FROM BasicIngredient AS i " +
-            "where  i IN (:ingredients)")
+            "where  i IN :ingredients")
     List<BasicShampoo> findByHavingIngredients(@Param("ingredients") List<? extends Ingredient> ingredients);
 
     //Find by List from Ids

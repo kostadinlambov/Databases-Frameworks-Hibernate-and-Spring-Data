@@ -6,9 +6,11 @@ import app.model.repositories.IngredientRepository;
 import app.model.repositories.ShampooRepository;
 import app.model.shampoos.BasicShampoo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,13 +19,23 @@ import java.util.List;
 @SpringBootApplication
 public class ConsoleRunner implements CommandLineRunner {
 
+
     private ShampooRepository shampooRepository;
     private IngredientRepository ingredientRepository;
+    private final String appDomain;
 
     @Autowired
-    public ConsoleRunner(ShampooRepository shampooRepository, IngredientRepository ingredientRepository) {
+    public ConsoleRunner(ShampooRepository shampooRepository, IngredientRepository ingredientRepository,
+                         @Value(value = "${app.domain}")String appDomain) {
         this.shampooRepository = shampooRepository;
         this.ingredientRepository = ingredientRepository;
+        this.appDomain = appDomain;
+    }
+
+
+    @PostConstruct
+    public void printAppDomain(){
+        System.out.println(this.appDomain);
     }
 
     @Override
@@ -52,10 +64,11 @@ public class ConsoleRunner implements CommandLineRunner {
             System.out.println(basicIngredient.getName());
         }
 
-        //##Problem 6: Count Shampoos by Price
 
+        //##Problem 6: Count Shampoos by Price
         Long aLong = this.shampooRepository.countByPriceLessThan(new BigDecimal(8.50));
         System.out.println("Count: " + aLong);
+
 
         //Problem 7. Select Shampoos by Ingredients
         //##Find Shampoo by Ingredient Oblect
@@ -67,6 +80,7 @@ public class ConsoleRunner implements CommandLineRunner {
             System.out.println(shampoo.getBrand());
         }
 
+
         //##Find Shampoo By IngredientId
         List<BasicShampoo> byIngredientId =
                 this.shampooRepository.findByHavingIngredientIds(Collections.singletonList(1L));
@@ -75,7 +89,16 @@ public class ConsoleRunner implements CommandLineRunner {
             System.out.println(shampoo.getBrand());
         }
 
+
         //Problem 10. Delete Ingredients by name
 //        this.ingredientRepository.deleteByName("Wild Rose");
+
+
+      //  11. Update Ingredients by price
+        this.ingredientRepository.updateAllPrices();
+
+
+        //Problem: 12. Update Ingredients by Names
+       this.ingredientRepository.updatePriceForNames(names);
     }
 }

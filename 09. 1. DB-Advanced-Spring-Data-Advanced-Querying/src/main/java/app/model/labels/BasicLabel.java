@@ -1,6 +1,7 @@
 package app.model.labels;
 
 import app.model.shampoos.BasicShampoo;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -21,8 +22,13 @@ public class BasicLabel implements Label {
     @OneToOne(mappedBy = "label", targetEntity = BasicShampoo.class, cascade = CascadeType.ALL)
     private BasicShampoo basicShampoo;
 
-    public BasicLabel(){};
-    public BasicLabel(String title, String subtitle){
+
+
+
+    public BasicLabel(){
+
+    };
+    public BasicLabel(String title, String subtitlen){
         this.title = title;
         this.subtitle = subtitle;
     }

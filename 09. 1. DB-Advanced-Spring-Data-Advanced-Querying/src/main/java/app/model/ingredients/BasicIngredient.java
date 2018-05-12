@@ -32,6 +32,8 @@ public class BasicIngredient implements Ingredient {
         this.price = price;
     }
 
+
+
     @Override
     public String getName() {
         return this.name;
