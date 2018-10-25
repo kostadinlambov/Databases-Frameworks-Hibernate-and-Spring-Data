@@ -1,7 +1,6 @@
-package p09_Animals.animals;
+package p09_Animals;
 
 public class Frog extends AnimalImpl {
-
     public Frog(String name, int age, String gender) {
         super(name, age, gender);
     }

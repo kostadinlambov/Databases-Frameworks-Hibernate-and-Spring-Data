@@ -1,4 +1,4 @@
-package p09_Animals.animals;
+package p09_Animals;
 
 public class Dog extends AnimalImpl {
 

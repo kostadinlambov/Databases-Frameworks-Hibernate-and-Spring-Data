@@ -1,8 +1,6 @@
-package p09_Animals.animals;
+package p09_Animals;
 
-import p09_Animals.interfaces.Animal;
-
-public abstract class AnimalImpl implements Animal {
+public abstract class AnimalImpl implements Animal{
     private String name;
     private int age;
     private String gender;
@@ -13,11 +11,19 @@ public abstract class AnimalImpl implements Animal {
         this.setGender(gender);
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     private void setName(String name) {
-        if("".equals(name)){
+        if(name == null || "".equals(name)){
             throw new IllegalArgumentException("Invalid input!");
         }
         this.name = name;
+    }
+
+    public int getAge() {
+        return this.age;
     }
 
     private void setAge(int age) {
@@ -27,8 +33,12 @@ public abstract class AnimalImpl implements Animal {
         this.age = age;
     }
 
+    public String getGender() {
+        return this.gender;
+    }
+
     private void setGender(String gender) {
-        if("".equals(gender)){
+        if(gender == null || "".equals(gender)){
             throw new IllegalArgumentException("Invalid input!");
         }
         this.gender = gender;
@@ -43,6 +53,8 @@ public abstract class AnimalImpl implements Animal {
     public String toString() {
         return String.format("%s\n%s %d %s",
                 this.getClass().getSimpleName(),
-                this.name, this.age, this.gender);
+                this.getName(),
+                this.getAge(),
+                this.getGender());
     }
 }

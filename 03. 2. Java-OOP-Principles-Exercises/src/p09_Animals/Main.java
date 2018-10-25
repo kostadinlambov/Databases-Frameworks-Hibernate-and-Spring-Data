@@ -1,39 +1,61 @@
 package p09_Animals;
 
-import p09_Animals.factories.AnimalFactory;
-import p09_Animals.interfaces.Animal;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-
+    public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        while(true){
-            String animalClass = reader.readLine();
-
-            if("Beast!".equalsIgnoreCase(animalClass)){
+        while (true) {
+            String animalType = reader.readLine();
+            if ("Beast!".equalsIgnoreCase(animalType)) {
                 break;
             }
-            String[] tokens = reader.readLine().split("\\s+");
 
-            try{
-                String name = tokens[0];
-                int age = Integer.parseInt(tokens[1]);
+            String[] token = reader.readLine().split("\\s+");
+
+            try {
+                String name = token[0];
+                int age = Integer.parseInt(token[1]);
                 String gender = null;
-                if(tokens.length == 3){
-                    gender = tokens[2];
+
+                if (token.length == 3) {
+                    gender = token[2];
                 }
-                Animal animal = AnimalFactory.createAnimal(animalClass, name, age, gender);
-                System.out.println(animal);
-                animal.produceSound();
-            }catch(Exception iae){
-                System.out.println("Invalid input!");
-//                iae.printStackTrace();
+
+                switch (animalType) {
+                    case "Dog":
+                        SoundProducible dog = new Dog(name, age, gender);
+                        System.out.println(dog);
+                        dog.produceSound();
+                        break;
+                    case "Cat":
+                        SoundProducible cat = new Cat(name, age, gender);
+                        System.out.println(cat);
+                        cat.produceSound();
+                        break;
+                    case "Frog":
+                        SoundProducible frog = new Frog(name, age, gender);
+                        System.out.println(frog);
+                        frog.produceSound();
+                        break;
+                    case "Kitten":
+                        SoundProducible kitten = new Kitten(name, age);
+                        System.out.println(kitten);
+                        kitten.produceSound();
+                        break;
+                    case "Tomcat":
+                        SoundProducible tomcat = new Tomcat(name, age);
+                        System.out.println(tomcat);
+                        tomcat.produceSound();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid input!");
+                }
+            } catch (IllegalArgumentException iae) {
+                System.out.println(iae.getMessage());
             }
         }
     }

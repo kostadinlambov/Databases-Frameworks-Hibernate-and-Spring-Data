@@ -1,8 +1,8 @@
-package p09_Animals.animals;
+package p09_Animals;
 
 public class Tomcat extends Cat {
-    public Tomcat(String name, int age, String gender) {
-        super(name, age, "male");
+    public Tomcat(String name, int age) {
+        super(name, age, "Male");
     }
 
     @Override

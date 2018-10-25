@@ -1,9 +1,8 @@
-package p09_Animals.animals;
+package p09_Animals;
 
 public class Kitten extends Cat {
-
-    public Kitten(String name, int age, String gender) {
-        super(name, age, "female");
+    public Kitten(String name, int age) {
+        super(name, age, "Female");
     }
 
     @Override
@@ -11,4 +10,3 @@ public class Kitten extends Cat {
         System.out.println("Miau");
     }
 }
-
